@@ -24,6 +24,18 @@ class BankVoiceLogger:
         
         self.logger.addHandler(handler)
     
+    def info(self, message: str):
+        """Log info message"""
+        self.logger.info(message)
+    
+    def error(self, message: str):
+        """Log error message"""
+        self.logger.error(message)
+    
+    def warning(self, message: str):
+        """Log warning message"""
+        self.logger.warning(message)
+    
     def log_request(self, request_id: str, endpoint: str, method: str):
         """Log incoming request"""
         self.logger.info(f"[{request_id}] {method} {endpoint}")

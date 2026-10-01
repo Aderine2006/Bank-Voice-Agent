@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     # Application
     APP_NAME: str = "BankVoice AI"
     APP_VERSION: str = "1.0.0"
+    APP_ENV: str = "development"
     DEBUG: bool = True
     
     # Server
@@ -17,7 +18,7 @@ class Settings(BaseSettings):
     
     # LLM Provider
     LLM_PROVIDER: str = "gemini"
-    LLM_MODEL: str = "gemini-1.5-flash"
+    LLM_MODEL: str = "gemini-2.5-flash"
     GEMINI_API_KEY: Optional[str] = None
     
     # STT Provider

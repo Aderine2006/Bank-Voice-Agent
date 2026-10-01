@@ -1,0 +1,68 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# AI models
+models/
+*.bin
+*.safetensors
+*.gguf
+
+# Generated audio
+audio/
+*.wav
+*.mp3
+*.ogg
+
+# FAISS
+backend/data/faiss/*
+!backend/data/faiss/.gitkeep
+
+# Uploaded documents
+backend/data/banks/*/documents/*
+
+# Node
+node_modules/
+.next/
+out/
+
+# Build
+dist/
+build/
+
+# Temporary
+tmp/
+temp/

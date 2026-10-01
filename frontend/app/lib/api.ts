@@ -68,9 +68,24 @@ export async function getProducts(): Promise<LoanProduct[]> {
   return response.json();
 }
 
-export async function transcribeAudio(audioBlob: Blob): Promise<string> {
+export async function transcribeAudio(audioBlob: Blob, mimeType?: string): Promise<string> {
   const formData = new FormData();
-  formData.append('audio_file', audioBlob, 'audio.wav');
+  
+  // Determine file extension based on MIME type
+  let extension = 'wav';
+  if (mimeType) {
+    if (mimeType.includes('webm')) {
+      extension = 'webm';
+    } else if (mimeType.includes('ogg')) {
+      extension = 'ogg';
+    } else if (mimeType.includes('mp4')) {
+      extension = 'mp4';
+    } else if (mimeType.includes('wav')) {
+      extension = 'wav';
+    }
+  }
+  
+  formData.append('audio_file', audioBlob, `audio.${extension}`);
 
   const response = await fetch(`${API_BASE}/api/voice/transcribe`, {
     method: 'POST',

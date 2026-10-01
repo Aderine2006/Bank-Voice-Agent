@@ -46,12 +46,14 @@ export default function VoiceInterface({
       };
 
       mediaRecorderRef.current.onstop = async () => {
-        const audioBlob = new Blob(chunks, { type: 'audio/wav' });
+        // Detect the actual MIME type from MediaRecorder
+        const mimeType = mediaRecorderRef.current?.mimeType || 'audio/webm';
+        const audioBlob = new Blob(chunks, { type: mimeType });
         
         // Send to backend for transcription
         try {
           const { transcribeAudio } = await import('../lib/api');
-          const transcript = await transcribeAudio(audioBlob);
+          const transcript = await transcribeAudio(audioBlob, mimeType);
           onTranscript(transcript);
         } catch (error) {
           console.error('Transcription error:', error);

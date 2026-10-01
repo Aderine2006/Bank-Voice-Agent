@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 from app.core.config import settings
 from app.core.logging import logger
 from app.api import conversation, voice, products, loans, knowledge

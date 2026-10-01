@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
 from typing import Optional
 from app.providers.stt.base import STTProvider
 from app.providers.tts.base import TTSProvider
@@ -33,8 +33,10 @@ async def transcribe_audio(
         if not audio_data:
             raise HTTPException(status_code=400, detail="No audio data provided")
         
+        logger.info(f"Audio file: {audio_file.filename}, content_type: {audio_file.content_type}, size: {len(audio_data)} bytes")
+        
         # Transcribe
-        transcript = stt.transcribe(audio_data)
+        transcript = stt.transcribe(audio_data, filename=audio_file.filename)
         
         duration_ms = (time.time() - start_time) * 1000
         logger.log_provider_call("STT", "transcribe", duration_ms)
