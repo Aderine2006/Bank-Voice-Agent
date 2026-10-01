@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     
     # LLM Provider
     LLM_PROVIDER: str = "gemini"
-    LLM_MODEL: str = "gemini-2.5-flash"
+    LLM_MODEL: str = "gemini-1.5-flash"
     GEMINI_API_KEY: Optional[str] = None
     
     # STT Provider

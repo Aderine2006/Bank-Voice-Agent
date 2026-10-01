@@ -48,6 +48,7 @@ class FasterWhisperSTT(STTProvider):
             import librosa
             import tempfile
             import os
+            import subprocess
             
             logger.info(f"Transcribing audio data: {len(audio_data)} bytes, filename: {filename}")
             
@@ -61,48 +62,98 @@ class FasterWhisperSTT(STTProvider):
             
             audio_array = None
             sample_rate = 16000
+            converted_audio = None
             
-            # Method 1: Try librosa from BytesIO
-            try:
-                audio_file = io.BytesIO(audio_data)
-                audio_array, sample_rate = librosa.load(audio_file, sr=16000)
-                logger.info("Successfully loaded audio with librosa from BytesIO")
-            except Exception as e:
-                logger.warning(f"Librosa BytesIO load failed: {e}")
+            # For WebM/OGG formats, convert to WAV using ffmpeg first
+            if ext in ['.webm', '.ogg', '.mp4']:
+                logger.info(f"Converting {ext} to WAV using ffmpeg")
                 
-                # Method 2: Try scipy.io.wavfile for WAV files
-                if ext == '.wav':
-                    try:
-                        from scipy.io import wavfile
-                        audio_file = io.BytesIO(audio_data)
-                        sample_rate, audio_array = wavfile.read(audio_file)
-                        # Convert to float32 if needed
-                        if audio_array.dtype.kind == 'i':
-                            audio_array = audio_array.astype('float32') / 32768.0
-                        # Convert stereo to mono if needed
-                        if len(audio_array.shape) > 1:
-                            audio_array = audio_array.mean(axis=1)
-                        # Resample to 16kHz if needed
-                        if sample_rate != 16000:
-                            import librosa
-                            audio_array = librosa.resample(audio_array, orig_sr=sample_rate, target_sr=16000)
-                            sample_rate = 16000
-                        logger.info("Successfully loaded audio with scipy.io.wavfile")
-                    except Exception as e2:
-                        logger.warning(f"Scipy wavfile load failed: {e2}")
+                # Find ffmpeg path
+                import shutil
+                ffmpeg_path = shutil.which('ffmpeg')
+                if not ffmpeg_path:
+                    # Fallback to common installation paths
+                    import os
+                    possible_paths = [
+                        r"C:\Users\ADERINE\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin\ffmpeg.exe",
+                        r"C:\Program Files\FFmpeg\bin\ffmpeg.exe",
+                        r"C:\ffmpeg\bin\ffmpeg.exe",
+                    ]
+                    for path in possible_paths:
+                        if os.path.exists(path):
+                            ffmpeg_path = path
+                            break
                 
-                # Method 3: Try librosa with temp file
-                if audio_array is None:
-                    logger.warning(f"Trying temp file with extension {ext}")
-                    with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as temp_file:
-                        temp_file.write(audio_data)
-                        temp_path = temp_file.name
+                if not ffmpeg_path:
+                    raise ValueError("ffmpeg not found. Please install ffmpeg or add it to PATH.")
+                
+                logger.info(f"Using ffmpeg at: {ffmpeg_path}")
+                
+                with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as input_file:
+                    input_file.write(audio_data)
+                    input_path = input_file.name
+                
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as output_file:
+                    output_path = output_file.name
+                
+                try:
+                    # Use ffmpeg to convert to WAV
+                    subprocess.run(
+                        [ffmpeg_path, '-i', input_path, '-ar', '16000', '-ac', '1', '-y', output_path],
+                        capture_output=True,
+                        check=True
+                    )
+                    logger.info(f"Successfully converted to WAV: {output_path}")
                     
-                    try:
-                        audio_array, sample_rate = librosa.load(temp_path, sr=16000)
-                        logger.info(f"Successfully loaded audio with librosa from temp file: {temp_path}")
-                    finally:
-                        os.unlink(temp_path)
+                    # Read the converted WAV file
+                    audio_array, sample_rate = librosa.load(output_path, sr=16000)
+                    logger.info("Successfully loaded converted audio")
+                finally:
+                    os.unlink(input_path)
+                    if os.path.exists(output_path):
+                        os.unlink(output_path)
+            else:
+                # Method 1: Try librosa from BytesIO for standard formats
+                try:
+                    audio_file = io.BytesIO(audio_data)
+                    audio_array, sample_rate = librosa.load(audio_file, sr=16000)
+                    logger.info("Successfully loaded audio with librosa from BytesIO")
+                except Exception as e:
+                    logger.warning(f"Librosa BytesIO load failed: {e}")
+                    
+                    # Method 2: Try scipy.io.wavfile for WAV files
+                    if ext == '.wav':
+                        try:
+                            from scipy.io import wavfile
+                            audio_file = io.BytesIO(audio_data)
+                            sample_rate, audio_array = wavfile.read(audio_file)
+                            # Convert to float32 if needed
+                            if audio_array.dtype.kind == 'i':
+                                audio_array = audio_array.astype('float32') / 32768.0
+                            # Convert stereo to mono if needed
+                            if len(audio_array.shape) > 1:
+                                audio_array = audio_array.mean(axis=1)
+                            # Resample to 16kHz if needed
+                            if sample_rate != 16000:
+                                import librosa
+                                audio_array = librosa.resample(audio_array, orig_sr=sample_rate, target_sr=16000)
+                                sample_rate = 16000
+                            logger.info("Successfully loaded audio with scipy.io.wavfile")
+                        except Exception as e2:
+                            logger.warning(f"Scipy wavfile load failed: {e2}")
+                    
+                    # Method 3: Try librosa with temp file
+                    if audio_array is None:
+                        logger.warning(f"Trying temp file with extension {ext}")
+                        with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as temp_file:
+                            temp_file.write(audio_data)
+                            temp_path = temp_file.name
+                        
+                        try:
+                            audio_array, sample_rate = librosa.load(temp_path, sr=16000)
+                            logger.info(f"Successfully loaded audio with librosa from temp file: {temp_path}")
+                        finally:
+                            os.unlink(temp_path)
             
             if audio_array is None:
                 raise ValueError("Failed to load audio with any method")
