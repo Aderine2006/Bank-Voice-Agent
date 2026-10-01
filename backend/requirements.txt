@@ -1,0 +1,38 @@
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.23
+
+# LLM Provider
+google-generativeai==0.3.2
+
+# STT Provider
+faster-whisper==0.10.0
+
+# TTS Provider
+kokoro-onnx==0.0.8
+
+# RAG & Vector Database
+faiss-cpu==1.7.4
+sentence-transformers==2.2.2
+
+# Document Processing
+pypdf==3.17.0
+python-docx==1.1.0
+
+# Audio Processing
+numpy==1.26.2
+soundfile==0.12.1
+
+# Utilities
+python-dotenv==1.0.0
+httpx==0.25.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1

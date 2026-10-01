@@ -1,0 +1,26 @@
+[
+  {
+    "policy_id": "POL001",
+    "bank_id": "demo-bank",
+    "policy_name": "General Eligibility Policy",
+    "policy_type": "eligibility",
+    "content": "DEMO POLICY: All loan applicants must be Indian residents with a valid identity proof. Minimum age is 18 years for education loans and 21 years for other loans. Credit score requirements vary by product type. Employment stability is assessed based on duration in current employment or business.",
+    "effective_date": "2024-01-01"
+  },
+  {
+    "policy_id": "POL002",
+    "bank_id": "demo-bank",
+    "policy_name": "Document Requirements Policy",
+    "policy_type": "document",
+    "content": "DEMO POLICY: All applicants must submit valid identity proof (Aadhaar card or PAN card), address proof, and income proof. Additional documents may be required based on loan type and amount. All documents must be self-attested.",
+    "effective_date": "2024-01-01"
+  },
+  {
+    "policy_id": "POL003",
+    "bank_id": "demo-bank",
+    "policy_name": "Interest Rate Policy",
+    "policy_type": "repayment",
+    "content": "DEMO POLICY: Interest rates are determined based on credit score, employment type, loan amount, and tenure. The final rate is subject to bank's assessment and may vary from the advertised range. Rates are fixed for the entire tenure unless otherwise specified.",
+    "effective_date": "2024-01-01"
+  }
+]

@@ -1,0 +1,193 @@
+[
+  {
+    "product_id": "PL001",
+    "product_name": "Nova Personal Loan",
+    "bank_id": "demo-bank",
+    "loan_type": "personal",
+    "purpose": "Personal expenses and needs",
+    "minimum_amount": 50000,
+    "maximum_amount": 1500000,
+    "minimum_age": 21,
+    "maximum_age": 58,
+    "minimum_monthly_income": 25000,
+    "employment_types": ["salaried", "self_employed"],
+    "minimum_tenure_months": 12,
+    "maximum_tenure_months": 60,
+    "interest_rate_range": "10.5% - 14.5%",
+    "processing_fee": "1.5% of loan amount",
+    "required_documents": [
+      "Identity proof (Aadhaar/PAN)",
+      "Address proof",
+      "Income proof (salary slips)",
+      "Bank statements (last 6 months)",
+      "Passport size photograph"
+    ],
+    "eligibility_rules": {
+      "minimum_employment_duration_months": 6,
+      "minimum_credit_score": 650
+    },
+    "supported_purposes": [
+      "wedding",
+      "travel",
+      "medical",
+      "education",
+      "home renovation",
+      "debt consolidation",
+      "emergency",
+      "personal"
+    ],
+    "description": "Flexible personal loan for various needs"
+  },
+  {
+    "product_id": "HL001",
+    "product_name": "Nova Home Improvement Loan",
+    "bank_id": "demo-bank",
+    "loan_type": "home",
+    "purpose": "Home renovation and improvement",
+    "minimum_amount": 100000,
+    "maximum_amount": 5000000,
+    "minimum_age": 23,
+    "maximum_age": 60,
+    "minimum_monthly_income": 40000,
+    "employment_types": ["salaried", "self_employed"],
+    "minimum_tenure_months": 24,
+    "maximum_tenure_months": 120,
+    "interest_rate_range": "9.5% - 12.5%",
+    "processing_fee": "1% of loan amount",
+    "required_documents": [
+      "Identity proof",
+      "Address proof",
+      "Income proof",
+      "Property documents",
+      "Bank statements",
+      "Photograph"
+    ],
+    "eligibility_rules": {
+      "minimum_employment_duration_months": 12,
+      "minimum_credit_score": 700
+    },
+    "supported_purposes": [
+      "home renovation",
+      "home improvement",
+      "furniture",
+      "interior",
+      "repair",
+      "extension"
+    ],
+    "description": "Loan for home renovation and improvement projects"
+  },
+  {
+    "product_id": "VL001",
+    "product_name": "Nova Vehicle Loan",
+    "bank_id": "demo-bank",
+    "loan_type": "vehicle",
+    "purpose": "Vehicle purchase",
+    "minimum_amount": 100000,
+    "maximum_amount": 3000000,
+    "minimum_age": 21,
+    "maximum_age": 58,
+    "minimum_monthly_income": 30000,
+    "employment_types": ["salaried", "self_employed"],
+    "minimum_tenure_months": 12,
+    "maximum_tenure_months": 84,
+    "interest_rate_range": "9.0% - 13.0%",
+    "processing_fee": "1.25% of loan amount",
+    "required_documents": [
+      "Identity proof",
+      "Address proof",
+      "Income proof",
+      "Bank statements",
+      "Vehicle quotation",
+      "Photograph"
+    ],
+    "eligibility_rules": {
+      "minimum_employment_duration_months": 12,
+      "minimum_credit_score": 680
+    },
+    "supported_purposes": [
+      "car",
+      "bike",
+      "vehicle",
+      "automobile"
+    ],
+    "description": "Loan for new and used vehicle purchase"
+  },
+  {
+    "product_id": "EL001",
+    "product_name": "Nova Education Loan",
+    "bank_id": "demo-bank",
+    "loan_type": "education",
+    "purpose": "Education and skill development",
+    "minimum_amount": 50000,
+    "maximum_amount": 2000000,
+    "minimum_age": 18,
+    "maximum_age": 35,
+    "minimum_monthly_income": 20000,
+    "employment_types": ["salaried", "self_employed"],
+    "minimum_tenure_months": 12,
+    "maximum_tenure_months": 60,
+    "interest_rate_range": "10.0% - 13.5%",
+    "processing_fee": "1% of loan amount",
+    "required_documents": [
+      "Identity proof",
+      "Address proof",
+      "Income proof",
+      "Admission confirmation",
+      "Fee structure",
+      "Academic records"
+    ],
+    "eligibility_rules": {
+      "minimum_employment_duration_months": 6,
+      "minimum_credit_score": 650
+    },
+    "supported_purposes": [
+      "education",
+      "course",
+      "degree",
+      "certification",
+      "skill development",
+      "training",
+      "studies"
+    ],
+    "description": "Loan for education and professional courses"
+  },
+  {
+    "product_id": "BL001",
+    "product_name": "Nova Business Loan",
+    "bank_id": "demo-bank",
+    "loan_type": "business",
+    "purpose": "Business expansion and working capital",
+    "minimum_amount": 200000,
+    "maximum_amount": 10000000,
+    "minimum_age": 25,
+    "maximum_age": 65,
+    "minimum_monthly_income": 50000,
+    "employment_types": ["business", "self_employed"],
+    "minimum_tenure_months": 12,
+    "maximum_tenure_months": 60,
+    "interest_rate_range": "11.0% - 15.0%",
+    "processing_fee": "2% of loan amount",
+    "required_documents": [
+      "Identity proof",
+      "Address proof",
+      "Business registration",
+      "Financial statements",
+      "Bank statements",
+      "GST returns",
+      "Photograph"
+    ],
+    "eligibility_rules": {
+      "minimum_business_years": 2,
+      "minimum_credit_score": 700
+    },
+    "supported_purposes": [
+      "business",
+      "working capital",
+      "expansion",
+      "equipment",
+      "inventory",
+      "startup"
+    ],
+    "description": "Loan for business growth and working capital"
+  }
+]

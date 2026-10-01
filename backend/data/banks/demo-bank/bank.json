@@ -1,0 +1,12 @@
+{
+  "bank_id": "demo-bank",
+  "bank_name": "NovaBank",
+  "display_name": "NovaBank",
+  "is_demo": true,
+  "description": "DEMO / FICTIONAL BANK DATA - This is a fictional bank for demonstration purposes only. All rates, policies, and products are fictional examples.",
+  "contact_info": {
+    "phone": "1800-NOVA-BANK",
+    "email": "support@novabank.demo",
+    "address": "Demo City, Demo State"
+  }
+}
